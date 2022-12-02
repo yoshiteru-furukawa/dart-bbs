@@ -1,23 +1,24 @@
-import 'dart:convert';
+import 'package:dart_bbs/src/create_proof_value.dart';
 
-import 'package:http/http.dart' as http;
-import 'package:bs58/bs58.dart';
 // input  : signature
 //        : publickey
-//        : VC
+//        : VC(disclosed message)
 //
 // output : proof
 
-Future<String> createBbsProof(signature, publicKey, VC) async {
-  var url = Uri.parse(
-    'http://localhost:3000',
-  );
-  var response = await http.post(url,
-      body: json.encode({
-        "signature": base64.decode(signature),
-        "publicKey": base58.decode(publicKey),
-        "VC": VC
-      }),
-      headers: {"Content-Type": "application/json"});
-  return json.decode(response.body)["proof"];
+Future<Map> createBbsProof(signature, publicKey, VC) async {
+  var proofValue = await createProofValue(signature, publicKey, VC);
+  var proof = {
+    "type": "BbsBlsSignatureProof2020",
+    //update
+    "created": "2020-04-25",
+    //update
+    "verificationMethod": "did:example:489398593#test",
+    "proofPurpose": "assertionMethod",
+    "proofValue": proofValue,
+    //update
+    "nonce":
+        "6i3dTz5yFfWJ8zgsamuyZa4yAHPm75tUOOXddR6krCvCYk77sbCOuEVcdBCDd/l6tIY="
+  };
+  return proof;
 }
