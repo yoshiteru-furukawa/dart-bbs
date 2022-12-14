@@ -12,6 +12,8 @@ dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.5
+  intl: ^0.17.0
+  nonce: ^1.2.0
 
 dev_dependencies:
   flutter_test:

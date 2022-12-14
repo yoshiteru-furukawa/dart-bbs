@@ -1,4 +1,13 @@
 import 'package:dart_bbs/src/create_proof_value.dart';
+import 'package:intl/intl.dart';
+import 'package:nonce/nonce.dart';
+
+String getDate() {
+  DateTime now = DateTime.now();
+  DateFormat outputFormat = DateFormat('yyyy-MM-dd');
+  String date = outputFormat.format(now);
+  return date;
+}
 
 // input  : signature
 //        : publickey
@@ -10,15 +19,11 @@ Future<Map> createBbsProof(signature, publicKey, VC) async {
   var proofValue = await createProofValue(signature, publicKey, VC);
   var proof = {
     "type": "BbsBlsSignatureProof2020",
-    //update
-    "created": "2020-04-25",
-    //update
-    "verificationMethod": "did:example:489398593#test",
+    "created": getDate(),
+    "verificationMethod": VC["proof"]["verificationMethod"], // issuer
     "proofPurpose": "assertionMethod",
     "proofValue": proofValue,
-    //update
-    "nonce":
-        "6i3dTz5yFfWJ8zgsamuyZa4yAHPm75tUOOXddR6krCvCYk77sbCOuEVcdBCDd/l6tIY="
+    "nonce": Nonce.generate(64)
   };
   return proof;
 }
