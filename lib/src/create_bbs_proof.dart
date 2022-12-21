@@ -26,7 +26,7 @@ Future<Map> createBbsProof(
     "created": getDate(),
 
     // where can "verificationMethod" be obtained
-    "verificationMethod": messages[0]["proof"]["verificationMethod"], // issuer
+    "verificationMethod": "aaaaaaaaa", // issuer
 
     "proofPurpose": "assertionMethod",
     "proofValue": proofValue,
