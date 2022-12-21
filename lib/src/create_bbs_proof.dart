@@ -9,18 +9,25 @@ String getDate() {
   return date;
 }
 
-// input  : signature
-//        : publickey
-//        : VC(disclosed message)
+// input  : signature String
+//        : publickey String
+//        : messages String[]
+//        : revealed Number[]
+//        : nonce string
 //
 // output : proof
 
-Future<Map> createBbsProof(signature, publicKey, VC) async {
-  var proofValue = await createProofValue(signature, publicKey, VC);
+Future<Map> createBbsProof(
+    signature, publicKey, messages, revealed, nonce) async {
+  var proofValue =
+      await createProofValue(signature, publicKey, messages, revealed, nonce);
   var proof = {
     "type": "BbsBlsSignatureProof2020",
     "created": getDate(),
-    "verificationMethod": VC["proof"]["verificationMethod"], // issuer
+
+    // where can "verificationMethod" be obtained
+    "verificationMethod": messages[0]["proof"]["verificationMethod"], // issuer
+
     "proofPurpose": "assertionMethod",
     "proofValue": proofValue,
     "nonce": Nonce.generate(64)

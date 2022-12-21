@@ -3,13 +3,16 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:bs58/bs58.dart';
 
-// input  : signature
-//        : publickey
-//        : VC(disclosed message)
+// input  : signature String
+//        : publickey String
+//        : messages String[]
+//        : revealed Number[]
+//        : nonce string
 //
 // output : proof value
 
-Future<String> createProofValue(signature, publicKey, VC) async {
+Future<String> createProofValue(
+    signature, publicKey, messages, revealed, nonce) async {
   var url = Uri.parse(
     'http://localhost:3000/create_vp',
   );
@@ -17,7 +20,10 @@ Future<String> createProofValue(signature, publicKey, VC) async {
       body: json.encode({
         "signature": base64.decode(signature),
         "publicKey": base58.decode(publicKey),
-        "VC": VC
+        "revealed": revealed,
+        "messages": messages,
+        // base64? or 58? should be cast
+        "nonce": base64.decode(nonce)
       }),
       headers: {"Content-Type": "application/json"});
 
