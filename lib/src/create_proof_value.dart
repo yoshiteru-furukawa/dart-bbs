@@ -18,12 +18,14 @@ Future<String> createProofValue(
   );
   var response = await http.post(url,
       body: json.encode({
-        "signature": base64.decode(signature),
-        "publicKey": base58.decode(publicKey),
+        // base64? or 58? should be cast
+        "signature": signature,
+        // base64? or 58? should be cast
+        "publicKey": publicKey,
         "revealed": revealed,
         "messages": messages,
         // base64? or 58? should be cast
-        "nonce": base64.decode(nonce)
+        "nonce": nonce
       }),
       headers: {"Content-Type": "application/json"});
 

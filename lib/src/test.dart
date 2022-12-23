@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:dart_bbs/src/create_bbs_proof.dart';
+import 'package:dart_bbs/src/create_proof_value.dart';
 import 'package:dart_bbs/src/create_vp.dart';
 import 'package:nonce/nonce.dart';
 
@@ -41,6 +43,19 @@ void main() async {
       "oqpWYKaZD9M1Kbe94BVXpr8WTdFBNZyKv48cziTiQUeuhm7sBhCABMyYG4kcMrseC68YTFFgyhiNeBKjzdKk9MiRWuLv5H4FFujQsQK2KTAtzU8qTBiZqBHMmnLF4PL7Ytu";
   List<int> revealed = [0, 1, 2, 4];
   String nonce = Nonce.generate(64);
-  String vp = await createVP(signature, publicKey, messages, revealed, nonce);
-  print(vp);
+
+  // please check values of signature and publicKey
+  // they should be converted base64
+
+  // String proofValue =
+  //    await createProofValue(signature, publicKey, messages, revealed, nonce);
+
+  String proofValue = "testValue";
+  print(proofValue);
+
+  Map proof = createBbsProof(nonce, proofValue);
+  print(proof);
+
+  String VP = createVP(messages, revealed, proof);
+  print(VP);
 }

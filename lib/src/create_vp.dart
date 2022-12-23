@@ -8,13 +8,12 @@ import 'package:dart_bbs/dart_bbs.dart';
 //
 // output : proof value
 
-Future<String> createVP(signature, publicKey, messages, revealed, nonce) async {
-  var proof =
-      await createBbsProof(signature, publicKey, messages, revealed, nonce);
-  Map VP = messages[0];
-  for (var i = 1; i < messages.length; i++) {
-    if (revealed.includes(i)) {
-      VP = {...VP, ...messages[i]};
+String createVP(messages, revealed, proof) {
+  Map VP = {...json.decode(messages[0]), ...json.decode(messages[1])};
+  for (var i = 2; i < messages.length; i++) {
+    if (revealed.contains(i)) {
+      var message = json.decode(messages[i]);
+      VP[message["type"]] = message["subject"];
     }
   }
   VP["proof"] = proof;
