@@ -9,18 +9,15 @@ String getDate() {
   return date;
 }
 
-// input  : nonce, proofValue
+// input  : nonce, proofValue, veriMethod
 //
 // output : proof
 
-Map createBbsProof(nonce, proofValue) {
+Map createBbsProof(nonce, proofValue, veriMethod) {
   var proof = {
     "type": "BbsBlsSignatureProof2020",
     "created": getDate(),
-
-    // where can "verificationMethod" be obtained
-    "verificationMethod": "aaaaaaaaa", // issuer
-
+    "verificationMethod": veriMethod, 
     "proofPurpose": "assertionMethod",
     "proofValue": proofValue,
     "nonce": nonce

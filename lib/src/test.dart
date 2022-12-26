@@ -5,8 +5,8 @@ import 'package:dart_bbs/src/create_vp.dart';
 import 'package:nonce/nonce.dart';
 
 void main() async {
-  /*　発行するVCの各要素を各messageに対応づける
-  ->claimに対応するmessage 2〜 message nは、想定するVCのスキーマによって設定する必要があります
+  /*　To add the fuction of selective disclosure, it is required to map each element to be selected to each message.
+  -> In the example case below, message 2 〜 message n are located in "claim" in a VC, and selected depending on a holder's choice. 
   */
   String message0 = json.encode({
     "context": [
@@ -35,27 +35,27 @@ void main() async {
     message2,
     message3,
     message4
-  ]; //message0, message1は常に開示。message2以降をholderが選択可能
+  ];
 
-  String signature =
-      "kTTbA3pmDa6Qia/JkOnIXDLmoBz3vsi7L5t3DWySI/VLmBqleJ/Tbus5RoyiDERDBEh5rnACXlnOqJ/U8yFQFtcp/mBCc2FtKNPHae9jKIv1dm9K9QK1F3GI1AwyGoUfjLWrkGDObO1ouNAhpEd0+et+qiOf2j8p3MTTtRRx4Hgjcl0jXCq7C7R5/nLpgimHAAAAdAx4ouhMk7v9dXijCIMaG0deicn6fLoq3GcNHuH5X1j22LU/hDu7vvPnk/6JLkZ1xQAAAAIPd1tu598L/K3NSy0zOy6obaojEnaqc1R5Ih/6ZZgfEln2a6tuUp4wePExI1DGHqwj3j2lKg31a/6bSs7SMecHBQdgIYHnBmCYGNQnu/LZ9TFV56tBXY6YOWZgFzgLDrApnrFpixEACM9rwrJ5ORtxAAAAAgE4gUIIC9aHyJNa5TBklMOh6lvQkMVLXa/vEl+3NCLXblxjgpM7UEMqBkE9/QcoD3Tgmy+z0hN+4eky1RnJsEg=";
-  String publicKey =
-      "oqpWYKaZD9M1Kbe94BVXpr8WTdFBNZyKv48cziTiQUeuhm7sBhCABMyYG4kcMrseC68YTFFgyhiNeBKjzdKk9MiRWuLv5H4FFujQsQK2KTAtzU8qTBiZqBHMmnLF4PL7Ytu";
-  List<int> revealed = [0, 1, 2, 4];
+  /* Set signature and publicKey 
+   ->"signature" is obtained from the proofValue of the targeted VC 
+   ->"publicKey" is assumed to be obtained from the Verifiable Data Registry 
+   ->"revealed" indicates the order index of the messages to be revealed*/
+  String signature = "hcRz0EFezSoMLYDNncuOtpnIVpoXhDz6q/eyTHxr5Rc6OqXT46EnEF/6nQM6GdlMLQNOTh6KIPu4inSRuvdPbLMY05ArYPqtaTSAYiX9flskAwV7N1t2MoRzTz9cHPX5EtcySPlOeatb0/FADPBF3A==";
+  String publicKey = "plAUct6Jg1DYHw3Q8H91LICj6X0heemlzy6glNGwTejIaXq3B5SGUOkWZ8bYTFgJBAhUbf9s56erXYX3IFjAKsJh8gl1zdEIVMpERPLEMEWwBUS5MoCE/oAKn/rSH5zQ";
+  List<int> revealed = [0, 1, 2, 4]; //The number indicates the order index of the messages to be revealed
   String nonce = Nonce.generate(64);
 
-  // please check values of signature and publicKey
-  // they should be converted base64
-
-  // String proofValue =
-  //    await createProofValue(signature, publicKey, messages, revealed, nonce);
-
-  String proofValue = "testValue";
+  /* Obtain the proofValue */
+  String proofValue = await createProofValue(signature, publicKey, messages, revealed, nonce);
   print(proofValue);
 
-  Map proof = createBbsProof(nonce, proofValue);
+  /* Format the proof */
+  String veriMethod = "did:issuer:0001"; //verificationMethod is retrieved from the proof in the targeted VC
+  Map proof = createBbsProof(nonce, proofValue, veriMethod);
   print(proof);
 
+  /* Format the VP */
   String VP = createVP(messages, revealed, proof);
   print(VP);
 }
