@@ -12,7 +12,12 @@ and the Flutter guide for
 -->
 
 ## Getting started
-
+in pubspec.yaml...
+```
+dependencies:
+  dart_bbs:  # add
+    path: ../dart_bbs # add
+```
 
 
 ## Usage
