@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:dart_bbs/dart_bbs.dart';
-import 'package:nonce/nonce.dart';
 
 void main() async {
   String VC = json.encode({
