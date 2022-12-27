@@ -12,7 +12,7 @@ void main() async {
     "id": "http://localhost:9000/vc/1",
     "type": ["VerifiableCredential"],
     "issuer": "did:issuer:0001",
-    "issuanceDate": "2022-10-09T10:15:55.382Z" // overrided
+    "issuanceDate": "2022-10-09T10:15:55.382Z" // overridden
   });
 
   /* signed VC */
