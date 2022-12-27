@@ -17,7 +17,7 @@ after cloning this repository
 ```
 dependencies:
   dart_bbs:
-    path: ../dart_bbs #(path for this repository)
+    path: ../dart_bbs # path for this repository
 ```
 
 
