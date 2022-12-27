@@ -1,5 +1,7 @@
 library dart_bbs;
 
-export 'src/create_bbs_proof.dart';
-export 'src/create_proof_value.dart';
-export 'src/create_vp.dart';
+export 'src/models/get_options.dart';
+
+export 'src/vc_create/vc_create.dart';
+export 'src/vp_create/vp_create.dart';
+export 'src/vp_verify/vp_verify.dart';
