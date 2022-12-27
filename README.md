@@ -13,10 +13,11 @@ and the Flutter guide for
 
 ## Getting started
 in pubspec.yaml...
+after cloning this repository
 ```
 dependencies:
-  dart_bbs:  # add
-    path: ../dart_bbs # add
+  dart_bbs:
+    path: ../dart_bbs #(path for this repository)
 ```
 
 
