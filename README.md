@@ -13,7 +13,9 @@ and the Flutter guide for
 
 ## Getting started
 in pubspec.yaml...
+
 after cloning this repository
+
 ```
 dependencies:
   dart_bbs:
