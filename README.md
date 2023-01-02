@@ -42,21 +42,21 @@ void main() async {
   });
 
   /* signed VC */
-  String signedVC = await vcCreate(VC);
-  print(signedVC);
+  String signedVC = await vcCreate(VC, secretKey, publicKey);
+  print(signedVC); // String signedVC
 
   /* get Options 
    user selects property from options in PLR app */
   List<String> options = getOptions(signedVC);
-  print(options);
+  print(options); // List<String> selective messages
 
   /* create VP */
   List<int> revealed = [0, 1, 2, 4];
-  String VP = await vpCreate(signedVC, revealed);
-  print(VP);
+  String VP = await vpCreate(signedVC, revealed, publicKey);
+  print(VP); // String VP
 
   /* verify VP */
-  String result = await vpVerify(VP);
-  print(result);
+  String result = await vpVerify(VP, publicKey);
+  print(result); // bool result
 }
 ```
