@@ -3,21 +3,22 @@ import 'package:dart_bbs/src/models/vc.dart';
 import 'package:dart_bbs/src/utils/get_date.dart';
 import 'package:dart_bbs/src/vc_create/get_proof_value.dart';
 
-import 'package:nonce/nonce.dart';
-
 // input  : VC        String
 //          revealed  List<???>
 //
 // output : proof value
 
-Future<String> vcCreate(VC) async {
-  VerifiableCredential VC_ = VerifiableCredential(VC);
+Future<String> vcCreate(VC, secretKey, publicKey) async {
+  Map VC1 = json.decode(VC);
+  VC1["issuanceDate"] = getDate();
+
+  VerifiableCredential VC_ = VerifiableCredential(json.encode(VC1));
 
   // should be obtained from VDR
-  String secretKey = "feghtwjyet";
-  String publicKey = "feghtwjyet";
+  // String secretKey = "feghtwjyet";
+  // String publicKey = "feghtwjyet";
 
-  List<String> messages = VC_.getMessages();
+  List<String> messages = VC_.messages;
 
   String proofValue = await getProofValue(publicKey, secretKey, messages);
 
@@ -25,15 +26,16 @@ Future<String> vcCreate(VC) async {
   var proof = {
     "type": "BbsBlsSignatureProof2020",
     "created": getDate(),
+
+    // should be updated (how to obtain veriMethod)
     "verificationMethod": VC_.getVerificationMethod(),
     "proofPurpose": "assertionMethod",
     "proofValue": proofValue,
   };
 
   /* createVC */
-  Map signedVC = json.decode(VC_.rawVC);
+  Map signedVC = VC_.mapVC;
   signedVC["proof"] = proof;
-  signedVC["issuanceDate"] = getDate();
 
   return json.encode(signedVC);
 }

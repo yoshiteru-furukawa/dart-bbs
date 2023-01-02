@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:dart_bbs/dart_bbs.dart';
 import 'package:dart_bbs/src/models/vc.dart';
+import 'package:dart_bbs/src/models/distribute_fields.dart';
 import 'package:dart_bbs/src/utils/get_key_pair.dart';
+import 'package:dart_bbs/src/models/merge_fields.dart';
 import 'package:dart_bbs/src/utils/pprint.dart';
 
 void main() async {
@@ -11,7 +13,7 @@ void main() async {
       "https://purl.imsglobal.org/spec/ob/v3p0/context.json",
       "https://www.u-tokyo.ac.jp/oid/context.json"
     ],
-    "id": "http://credentials.u-tokyo.ac.jp/degree/phd/science/12345",
+    "id": "http://credentials.u-tokyo.ac.jp/transcript/12345",
     "type": ["VerifiableCredential", "OpenBadgeCredential"],
     "issuer": {
       "id": "did:xxx:issuersid1234567890",
@@ -19,31 +21,80 @@ void main() async {
       "name": "The University of Tokyo"
     },
     "issuanceDate": "2010-01-01T00:00:00Z",
-    "name": "PhD Degree Certificate",
     "holder": {
       "id": "did:xxx:holderid1234567890",
       "type": "Profile",
       "name": "SATO, Hiroyuki",
       "birthday": "0000-00-00",
-      "sex": "male"
+      "sex": "male",
+      "Address": "Tokyo, Japan"
     },
-    "credentialSubject": {
-      "id": "http://credentials.u-tokyo.ac.jp/degree/phd/science/12345",
-      "type": "AchievementSubject",
-      "identifier": {
-        "type": "IdentityObject",
-        "identityType": "Profile",
-        "hashed": "false",
-        "identityHash": "SATO Hiroyuki"
-      },
-      "achievement": {
+    "name": "Transcript",
+    "credentialSubject": [
+      {
         "id": "http://credentials.u-tokyo.ac.jp/degree/phd/science/12345",
-        "type": "DoctoralDegree",
-        "criteria": "abc",
-        "description": "abc",
-        "name": "Doctor of Philosophy in Computer Science"
+        "type": "AchievementSubject",
+        "identifier": {
+          "type": "IdentityObject",
+          "identityType": "userName",
+          "hashed": "false",
+          "identityHash": "SATO Hiroyuki",
+          "birthday": "0000-00-00",
+          "sex": "male"
+        },
+        "creditsEarned": "4.0",
+        "Result": {"achievedLevel": "A"},
+        "achievement": {
+          "id": "http://credentials.u-tokyo.ac.jp/degree/phd/science/12345",
+          "type": "Course",
+          "criteria": "abc",
+          "description": "abc",
+          "name": "Compiler Construction"
+        }
+      },
+      {
+        "id": "http://credentials.u-tokyo.ac.jp/degree/phd/science/12345",
+        "type": "AchievementSubject",
+        "identifier": {
+          "type": "IdentityObject",
+          "identityType": "userName",
+          "hashed": "false",
+          "identityHash": "SATO Hiroyuki",
+          "birthday": "0000-00-00",
+          "sex": "male"
+        },
+        "creditsEarned": "4.0",
+        "Result": {"achievedLevel": "S"},
+        "achievement": {
+          "id": "http://credentials.u-tokyo.ac.jp/degree/phd/science/23456",
+          "type": "Course",
+          "criteria": "abc",
+          "description": "abc",
+          "name": "Linear Algebra"
+        }
+      },
+      {
+        "id": "http://credentials.u-tokyo.ac.jp/degree/phd/science/12345",
+        "type": "AchievementSubject",
+        "identifier": {
+          "type": "IdentityObject",
+          "identityType": "userName",
+          "hashed": "false",
+          "identityHash": "SATO Hiroyuki",
+          "birthday": "0000-00-00",
+          "sex": "male"
+        },
+        "creditsEarned": "4.0",
+        "Result": {"achievedLevel": "B"},
+        "achievement": {
+          "id": "http://credentials.u-tokyo.ac.jp/degree/phd/science/23456",
+          "type": "Course",
+          "criteria": "abc",
+          "description": "abc",
+          "name": "Machine Learning I"
+        }
       }
-    },
+    ],
     "proof": {
       "type": "BbsBlsSignature2020",
       "created": "2022-12-20T00:00:00Z",
@@ -53,7 +104,6 @@ void main() async {
           "eyJhbGciOiJFZERTQSJ9.MWI4Mjk4MDU0OTZkYzRkMGU0ODY1Y2RiNDdjZDM0MjljNzUxM2JkODY2NmU5OWUzMzBiZWE3NmRmZWIxMmNkNQ.pUJSf-fnVjiggDhxMyzZMaC4Sn23XPF9B96BLCKsNv13tB44bDs77TR7FaWIpHI3H6xRoOMkFFvk3KVq_b8GDA"
     }
   });
-
   /* Issuer's keyPair 
   keyPair(publicKey) should be obtained from VDR */
   var keyPair = await getKeyPair();

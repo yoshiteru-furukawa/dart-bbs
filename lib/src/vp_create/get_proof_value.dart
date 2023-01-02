@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:bs58/bs58.dart';
 
 // input  : signature String
 //        : publickey String
@@ -14,7 +13,7 @@ import 'package:bs58/bs58.dart';
 Future<String> getProofValue(
     signature, publicKey, messages, revealed, nonce) async {
   var url = Uri.parse(
-    'http://localhost:3000/create_vp',
+    'http://localhost:8000/create_vp',
   );
   var response = await http.post(url,
       body: json.encode({
