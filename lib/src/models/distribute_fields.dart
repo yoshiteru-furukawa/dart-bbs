@@ -8,9 +8,6 @@ List<String> distributeFields(body, requiredFieldsMap, {baseIndex = 1}) {
     if (field == "proof") {
       continue;
     }
-    if (field == "c") {
-      print(json.decode(body)[field].runtimeType);
-    }
 
     if (requiredFieldsMap["root"].contains(field)) {
       requiredMessage[field] = json.decode(body)[field];
@@ -29,7 +26,6 @@ List<String> distributeFields(body, requiredFieldsMap, {baseIndex = 1}) {
     }
 
     if (json.decode(body)[field].runtimeType == List) {
-      // update credentialSubjects
       if (json.decode(body)[field][0].runtimeType.toString() ==
           "_InternalLinkedHashMap<String, dynamic>") {
         requiredMessage["list:$field"] = [];
