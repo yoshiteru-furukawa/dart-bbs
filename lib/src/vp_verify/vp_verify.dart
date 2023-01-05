@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 
 Future<bool> vpVerify(VP, publicKey) async {
   var url = Uri.parse(
-    'http://localhost:9000/verify_vp', //HTTP request
+    'http://35.86.230.210:9000/verify_vp', //HTTP request
   );
   var VP_ = VerifiablePresentation(VP);
 

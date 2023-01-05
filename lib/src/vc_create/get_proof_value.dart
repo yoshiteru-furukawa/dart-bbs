@@ -12,7 +12,7 @@ import 'package:bs58/bs58.dart';
 
 Future<String> getProofValue(pk, sk, messages) async {
   var url = Uri.parse(
-    'http://localhost:3000/create_vc', //HTTP request
+    'http://35.86.230.210:3000/create_vc', //HTTP request
   );
   var response = await http.post(url,
       body: json.encode({

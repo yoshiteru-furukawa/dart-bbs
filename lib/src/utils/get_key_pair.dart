@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 
 Future<Map> getKeyPair() async {
   var url = Uri.parse(
-    'http://localhost:8000/create_key_pair',
+    'http://35.86.230.210:8000/create_key_pair',
   );
   var response =
       await http.get(url, headers: {"Content-Type": "application/json"});

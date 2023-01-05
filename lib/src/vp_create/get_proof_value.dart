@@ -13,7 +13,7 @@ import 'package:http/http.dart' as http;
 Future<String> getProofValue(
     signature, publicKey, messages, revealed, nonce) async {
   var url = Uri.parse(
-    'http://localhost:8000/create_vp',
+    'http://35.86.230.210:8000/create_vp',
   );
   var response = await http.post(url,
       body: json.encode({
