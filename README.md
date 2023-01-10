@@ -50,11 +50,11 @@ void main() async {
 
   /* to obtain signature */
   String signature = await getProofValue(publicKey, secretKey, [jsonObject]);
-  print(signature); // String signedVC
+  print(signature); // String signature
 
   /* to verify signature */
   bool is_verified = await blsVerify(signature, publicKey, [jsonObject]);
-  print(is_verified); // String signedVC
+  print(is_verified); // bool verifiedResult
 
 
 
