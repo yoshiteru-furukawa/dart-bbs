@@ -34,7 +34,8 @@ class VerifiableCredential {
   }
 
   String getVerificationMethod() {
-    return proof!["verificationMethod"];
+    // return proof!["verificationMethod"];
+    return "test";
   }
 
   List<String> getMessagesWithMeta() {

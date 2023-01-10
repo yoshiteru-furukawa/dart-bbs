@@ -47,7 +47,7 @@ void main() async {
     "proof": {
       "type": "BbsBlsSignature2020",
       "created": "2022-12-20T00:00:00Z",
-      "verificationMethod": "did:example:489398593#test",
+      "verificatinMethod": "did:example:489398593#test",
       "proofPurpose": "assertionMethod",
       "proofValue":
           "eyJhbGciOiJFZERTQSJ9.MWI4Mjk4MDU0OTZkYzRkMGU0ODY1Y2RiNDdjZDM0MjljNzUxM2JkODY2NmU5OWUzMzBiZWE3NmRmZWIxMmNkNQ.pUJSf-fnVjiggDhxMyzZMaC4Sn23XPF9B96BLCKsNv13tB44bDs77TR7FaWIpHI3H6xRoOMkFFvk3KVq_b8GDA"
