@@ -3,6 +3,8 @@ import 'package:dart_bbs/dart_bbs.dart';
 import 'package:dart_bbs/src/models/vc.dart';
 import 'package:dart_bbs/src/utils/get_key_pair.dart';
 import 'package:dart_bbs/src/utils/pprint.dart';
+import 'package:dart_bbs/src/vc_create/get_proof_value.dart';
+import 'package:dart_bbs/src/vp_verify/bls_verify.dart';
 
 void main() async {
   String VC = json.encode({
@@ -44,14 +46,6 @@ void main() async {
         "name": "Doctor of Philosophy in Computer Science"
       }
     },
-    "proof": {
-      "type": "BbsBlsSignature2020",
-      "created": "2022-12-20T00:00:00Z",
-      "verificatinMethod": "did:example:489398593#test",
-      "proofPurpose": "assertionMethod",
-      "proofValue":
-          "eyJhbGciOiJFZERTQSJ9.MWI4Mjk4MDU0OTZkYzRkMGU0ODY1Y2RiNDdjZDM0MjljNzUxM2JkODY2NmU5OWUzMzBiZWE3NmRmZWIxMmNkNQ.pUJSf-fnVjiggDhxMyzZMaC4Sn23XPF9B96BLCKsNv13tB44bDs77TR7FaWIpHI3H6xRoOMkFFvk3KVq_b8GDA"
-    }
   });
 
   /* Issuer's keyPair 
@@ -60,8 +54,11 @@ void main() async {
   String publicKey = keyPair["publicKey"];
   String secretKey = keyPair["secretKey"];
 
-  var test = blsSign(VC, secretKey, publicKey);
+  var test = await getProofValue(publicKey, secretKey, [VC]);
   print(test);
+
+  var result = await blsVerify(test, publicKey, [VC]);
+  print(result);
 
   print("----------------------------------------");
   print("1. keyPair should be obtained from VDR");
@@ -106,8 +103,8 @@ void main() async {
   print("\n\n");
 
   /* verify VP */
-  bool result = await vpVerify(VP, publicKey);
+  bool result1 = await vpVerify(VP, publicKey);
   print("----------------------------------------");
   print("6. VP will be verified by Verifier");
-  print(result);
+  print(result1);
 }

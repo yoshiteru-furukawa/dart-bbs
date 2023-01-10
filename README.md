@@ -48,10 +48,13 @@ void main() async {
   String secretKey = keyPair["secretKey"];
 
 
-  /* signed VC 
-    For only signature */
-  String signedVC1 = await blsSign(VC, secretKey, publicKey);
-  print(signedVC1); // String signedVC
+  /* to obtain signature */
+  String signature = await getProofValue(publicKey, secretKey, [jsonObject]);
+  print(signature); // String signedVC
+
+  /* to verify signature */
+  bool is_verified = await blsVerify(signature, publicKey, [jsonObject]);
+  print(is_verified); // String signedVC
 
 
 
