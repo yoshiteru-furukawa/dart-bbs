@@ -59,6 +59,7 @@ void main() async {
   var keyPair = await getKeyPair();
   String publicKey = keyPair["publicKey"];
   String secretKey = keyPair["secretKey"];
+
   print("----------------------------------------");
   print("1. keyPair should be obtained from VDR");
   print("publicKey");

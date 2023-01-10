@@ -41,6 +41,12 @@ void main() async {
     "issuanceDate": "2022-10-09T10:15:55.382Z" // overridden
   });
 
+   /* Issuer's keyPair 
+  keyPair(publicKey) should be obtained from VDR */
+  var keyPair = await getKeyPair();
+  String publicKey = keyPair["publicKey"];
+  String secretKey = keyPair["secretKey"];
+
   /* signed VC */
   String signedVC = await vcCreate(VC, secretKey, publicKey);
   print(signedVC); // String signedVC

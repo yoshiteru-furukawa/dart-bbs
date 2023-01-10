@@ -4,7 +4,6 @@ import 'package:dart_bbs/src/utils/get_date.dart';
 import 'package:dart_bbs/src/vc_create/get_proof_value.dart';
 
 // input  : VC        String
-//          revealed  List<???>
 //
 // output : proof value
 
