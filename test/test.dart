@@ -60,6 +60,9 @@ void main() async {
   String publicKey = keyPair["publicKey"];
   String secretKey = keyPair["secretKey"];
 
+  var test = blsSign(VC, secretKey, publicKey);
+  print(test);
+
   print("----------------------------------------");
   print("1. keyPair should be obtained from VDR");
   print("publicKey");

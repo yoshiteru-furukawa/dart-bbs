@@ -11,8 +11,6 @@ Future<String> blsSign(VC, secretKey, publicKey) async {
   Map VC1 = json.decode(VC);
   VC1["issuanceDate"] = getDate();
 
-  VerifiableCredential VC_ = VerifiableCredential(json.encode(VC1));
-
   // should be obtained from VDR
   // String secretKey = "feghtwjyet";
   // String publicKey = "feghtwjyet";
@@ -27,7 +25,7 @@ Future<String> blsSign(VC, secretKey, publicKey) async {
     "created": getDate(),
 
     // should be updated (how to obtain veriMethod)
-    "verificationMethod": VC_.getVerificationMethod(),
+    "verificationMethod": "test",
     "proofPurpose": "assertionMethod",
     "proofValue": proofValue,
   };
