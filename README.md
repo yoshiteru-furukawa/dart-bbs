@@ -47,9 +47,18 @@ void main() async {
   String publicKey = keyPair["publicKey"];
   String secretKey = keyPair["secretKey"];
 
-  /* signed VC */
-  String signedVC = await vcCreate(VC, secretKey, publicKey);
-  print(signedVC); // String signedVC
+
+  /* signed VC 
+    For only signature */
+  String signedVC1 = await blsSign(VC, secretKey, publicKey);
+  print(signedVC1); // String signedVC
+
+
+
+  /* signed VC 
+    For selective disclosure */
+  String signedVC2 = await vcCreate(VC, secretKey, publicKey);
+  print(signedVC2); // String signedVC
 
   /* get Options 
    user selects property from options in PLR app */

@@ -20,14 +20,14 @@ void main() async {
     },
     "issuanceDate": "2010-01-01T00:00:00Z",
     "name": "PhD Degree Certificate",
-    "holder": {
+    "holer": {
       "id": "did:xxx:holderid1234567890",
       "type": "Profile",
       "name": "SATO, Hiroyuki",
       "birthday": "0000-00-00",
       "sex": "male"
     },
-    "credentialSubject": {
+    "creentialSubject": {
       "id": "http://credentials.u-tokyo.ac.jp/degree/phd/science/12345",
       "type": "AchievementSubject",
       "identifier": {
