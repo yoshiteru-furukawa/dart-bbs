@@ -10,12 +10,14 @@ void main() async {
     secretKey = keyPair["secretKey"];
   }
 
+  var now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
+
   var payload = json.encode({
-      "sub": "xxxx@gmail.com",
-      "iss": "http://example.idp_univ.com",
+      "sub": "plr:googleDrive:example@gmail.com:20230112114530_P9x",
+      "iss": "did:example:issuer",
       "aud": "https://example_fido.com",
-      "iat": 1673342278,
-      "exp": 1673345878,
+      "iat": now,
+      "exp": now + (60 * 60),	// 1 hour.
       "authnCtx": "plr"
   });
 
