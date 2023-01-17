@@ -9,8 +9,8 @@ export 'src/bls_signature/bls_create_proof.dart';
 export 'src/bls_signature/bls_verify_proof.dart';
 
 /* jws */
-export 'src/jws_create/jws_create.dart';
-export 'src/jws_verify/jws_verify.dart';
+export 'src/jws/jws_create.dart';
+export 'src/jws/jws_verify.dart';
 
 /* vcs */
 export 'src/vcs/vc_create.dart';
