@@ -1,5 +1,5 @@
+import 'package:dart_bbs/src/bls_signature/bls_sign.dart';
 import 'package:dart_bbs/src/models/jws.dart';
-import 'package:dart_bbs/src/jws_create/get_proof_value.dart';
 
 // input  : JWS Payload
 //
@@ -10,10 +10,12 @@ Future<String> jwsCreate(
   String secretKey,
   String publicKey,
 ) async {
-  JsonWebSignature jws; {
-    var proofValue = await getProofValue(publicKey, secretKey, payload);
+  JsonWebSignature jws;
+  {
+    var proofValue = await blsSign(publicKey, secretKey, [payload]);
     jws = JsonWebSignature.fromContents(
-      payloadString: payload, signature: proofValue,
+      payloadString: payload,
+      signature: proofValue,
     );
   }
   return jws.toCompactSerialization();

@@ -1,6 +1,6 @@
 import 'dart:convert';
+import 'package:dart_bbs/src/bls_signature/bls_create_proof.dart';
 import 'package:dart_bbs/src/models/merge_fields.dart';
-import 'package:dart_bbs/src/vp_create/get_proof_value.dart';
 import 'package:dart_bbs/src/models/vc.dart';
 import 'package:dart_bbs/src/utils/get_date.dart';
 
@@ -27,7 +27,7 @@ Future<String> vpCreate(signedVC, revealed, publicKey) async {
 
   String nonce = Nonce.generate(64);
 
-  String proofValue = await getProofValue(
+  String proofValue = await blsCreateProof(
       signature, publicKey, messages, revealedIndices, nonce);
 
   /* createProof */

@@ -1,10 +1,8 @@
 import 'dart:convert';
 import 'package:dart_bbs/dart_bbs.dart';
+import 'package:dart_bbs/src/bls_signature/gen_bls_key_pair.dart';
 import 'package:dart_bbs/src/models/vc.dart';
-import 'package:dart_bbs/src/utils/get_key_pair.dart';
 import 'package:dart_bbs/src/utils/pprint.dart';
-import 'package:dart_bbs/src/vc_create/get_proof_value.dart';
-import 'package:dart_bbs/src/vp_verify/bls_verify.dart';
 
 void main() async {
   String VC = json.encode({
@@ -22,14 +20,14 @@ void main() async {
     },
     "issuanceDate": "2010-01-01T00:00:00Z",
     "name": "PhD Degree Certificate",
-    "holer": {
+    "holder": {
       "id": "did:xxx:holderid1234567890",
       "type": "Profile",
       "name": "SATO, Hiroyuki",
       "birthday": "0000-00-00",
       "sex": "male"
     },
-    "creentialSubject": {
+    "credentialSubject": {
       "id": "http://credentials.u-tokyo.ac.jp/degree/phd/science/12345",
       "type": "AchievementSubject",
       "identifier": {
@@ -50,15 +48,9 @@ void main() async {
 
   /* Issuer's keyPair 
   keyPair(publicKey) should be obtained from VDR */
-  var keyPair = await getKeyPair();
+  var keyPair = await genBlsKeyPair();
   String publicKey = keyPair["publicKey"];
   String secretKey = keyPair["secretKey"];
-
-  var test = await getProofValue(publicKey, secretKey, [VC]);
-  print(test);
-
-  var result = await blsVerify(test, publicKey, [VC]);
-  print(result);
 
   print("----------------------------------------");
   print("1. keyPair should be obtained from VDR");

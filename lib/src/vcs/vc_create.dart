@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'package:dart_bbs/src/bls_signature/bls_sign.dart';
 import 'package:dart_bbs/src/models/vc.dart';
 import 'package:dart_bbs/src/utils/get_date.dart';
-import 'package:dart_bbs/src/vc_create/get_proof_value.dart';
 
 // input  : VC        String
 //
@@ -19,7 +19,7 @@ Future<String> vcCreate(VC, secretKey, publicKey) async {
 
   List<String> messages = VC_.messages;
 
-  String proofValue = await getProofValue(publicKey, secretKey, messages);
+  String proofValue = await blsSign(publicKey, secretKey, messages);
 
   /* createProof */
   var proof = {

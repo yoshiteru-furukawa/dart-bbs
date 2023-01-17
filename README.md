@@ -60,7 +60,7 @@ void main() async {
 
   /* signed VC 
     For selective disclosure */
-  String signedVC2 = await vcCreate(VC, secretKey, publicKey);
+  String signedVC2 = await vcCreate(VC, secretKey, //publicKey);
   print(signedVC2); // String signedVC
 
   /* get Options 

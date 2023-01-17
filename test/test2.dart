@@ -1,9 +1,6 @@
 import 'dart:convert';
 import 'package:dart_bbs/dart_bbs.dart';
 import 'package:dart_bbs/src/models/vc.dart';
-import 'package:dart_bbs/src/models/distribute_fields.dart';
-import 'package:dart_bbs/src/utils/get_key_pair.dart';
-import 'package:dart_bbs/src/models/merge_fields.dart';
 import 'package:dart_bbs/src/utils/pprint.dart';
 
 void main() async {
@@ -106,7 +103,7 @@ void main() async {
   });
   /* Issuer's keyPair 
   keyPair(publicKey) should be obtained from VDR */
-  var keyPair = await getKeyPair();
+  var keyPair = await genBlsKeyPair();
   String publicKey = keyPair["publicKey"];
   String secretKey = keyPair["secretKey"];
   print("----------------------------------------");

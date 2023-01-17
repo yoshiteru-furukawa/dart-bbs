@@ -4,8 +4,9 @@ import 'package:dart_bbs/dart_bbs.dart';
 import 'package:dart_bbs/src/utils/pprint.dart';
 
 void main() async {
-  String publicKey, secretKey; {
-    var keyPair = await getKeyPair();
+  String publicKey, secretKey;
+  {
+    var keyPair = await genBlsKeyPair();
     publicKey = keyPair["publicKey"];
     secretKey = keyPair["secretKey"];
   }
@@ -13,12 +14,12 @@ void main() async {
   var now = DateTime.now().millisecondsSinceEpoch ~/ 1000;
 
   var payload = json.encode({
-      "sub": "plr:googleDrive:example@gmail.com:20230112114530_P9x",
-      "iss": "did:example:issuer",
-      "aud": "https://example_fido.com",
-      "iat": now,
-      "exp": now + (60 * 60),	// 1 hour.
-      "authnCtx": "plr"
+    "sub": "plr:googleDrive:example@gmail.com:20230112114530_P9x",
+    "iss": "did:example:issuer",
+    "aud": "https://example_fido.com",
+    "iat": now,
+    "exp": now + (60 * 60), // 1 hour.
+    "authnCtx": "plr"
   });
 
   print("----------------------------------------");

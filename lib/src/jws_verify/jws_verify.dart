@@ -1,15 +1,11 @@
-import 'dart:convert';
-
+import 'package:dart_bbs/src/bls_signature/bls_verify.dart';
 import 'package:dart_bbs/src/models/jws.dart';
-import 'package:http/http.dart' as http;
 
 const _jwsHeaderTypeKey = "typ";
 const _jwsTypeJWT = "JWT";
 
 const _jwtExpirationTimeKey = "exp";
 const _jwtNotBeforeKey = "nbf";
-
-final blsVerifyUri = Uri.parse("http://35.86.230.210:8000/bls_verify");
 
 // input  : JWS Compact Serialization String
 //          publicKey String
@@ -20,16 +16,7 @@ Future<bool> jwsVerify(String compactSerialization, String publicKey) async {
   var jws = JsonWebSignature.fromCompactSerialization(compactSerialization);
   if (!_checkJWTValidity(jws)) return false;
 
-  var response = await http.post(
-    blsVerifyUri,
-    body: json.encode({
-        "signature": jws.signature,
-        "publicKey": publicKey,
-        "messages": [ jws.payloadDecoded ],
-    }),
-    headers: {"Content-Type": "application/json"},
-  );
-  return json.decode(response.body)["is_verified"]["verified"];
+  return blsVerify(publicKey, [jws.payloadDecoded], jws.signature);
 }
 
 bool _checkJWTValidity(JsonWebSignature jws) {
@@ -60,4 +47,3 @@ Map<String, dynamic>? _mayExtractJWT(JsonWebSignature jws) {
 
   return jws.payloadJson;
 }
-

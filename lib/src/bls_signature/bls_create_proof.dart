@@ -2,18 +2,20 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-// input  : signature String
-//        : publickey String
-//        : messages String[]
-//        : revealed Number[]
-//        : nonce string
-//
-// output : proof value
+/* Interface
+ input  : signature String
+        : publickey String
+        : messages String[]
+        : revealed Number[]
+        : nonce string
 
-Future<String> getProofValue(
+ output : proof value 
+*/
+
+Future<String> blsCreateProof(
     signature, publicKey, messages, revealed, nonce) async {
   var url = Uri.parse(
-    'http://35.86.230.210:8000/create_vp',
+    'http://35.86.230.210:8000/bls_create_proof', //HTTP request
   );
   var response = await http.post(url,
       body: json.encode({

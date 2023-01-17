@@ -1,14 +1,19 @@
 library dart_bbs;
 
-export 'src/models/get_options.dart';
-export 'src/utils/get_key_pair.dart';
+/* blsSignature */
+export 'src/bls_signature/gen_bls_key_pair.dart';
+export 'src/bls_signature/bls_sign.dart';
+export 'src/bls_signature/bls_verify.dart';
 
-export 'src/vc_create/vc_create.dart';
-export 'src/vc_create/get_proof_value.dart';
+export 'src/bls_signature/bls_create_proof.dart';
+export 'src/bls_signature/bls_verify_proof.dart';
 
-export 'src/vp_create/vp_create.dart';
-export 'src/vp_verify/vp_verify.dart';
-export 'src/vp_verify/bls_verify.dart';
-
+/* jws */
 export 'src/jws_create/jws_create.dart';
 export 'src/jws_verify/jws_verify.dart';
+
+/* vcs */
+export 'src/vcs/vc_create.dart';
+export 'src/vcs/vp_create.dart';
+export 'src/vcs/vp_verify.dart';
+export 'src/vcs/get_options.dart';
