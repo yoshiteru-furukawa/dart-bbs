@@ -1,18 +1,19 @@
 import 'dart:convert';
 
+import 'package:dart_bbs/src/bls_signature/uri_settings.dart';
 import 'package:http/http.dart' as http;
 
 // input  :
 //
 // output : keyPair
-// 35.86.230.210
 
 Future<Map> genBlsKeyPair() async {
-  var url = Uri.parse(
-    'http://35.86.230.210:8000/generate_key_pair',
-  );
-  var response =
-      await http.get(url, headers: {"Content-Type": "application/json"});
+  var response = await http
+      .get(genBlsKeyPairUri, headers: {"Content-Type": "application/json"});
 
-  return json.decode(response.body)["keyPair"];
+  Map ret = json.decode(response.body)["keyPair"];
+
+  // VDR
+  ret["id"] = "did:";
+  return ret;
 }

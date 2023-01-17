@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dart_bbs/src/bls_signature/uri_settings.dart';
 import 'package:http/http.dart' as http;
 
 /* Interface
@@ -11,10 +12,7 @@ import 'package:http/http.dart' as http;
 */
 
 Future<String> blsSign(pk, sk, messages) async {
-  var url = Uri.parse(
-    'http://35.86.230.210:3000/bls_sign', //HTTP request
-  );
-  var response = await http.post(url,
+  var response = await http.post(blsSignUri,
       body: json.encode({
         "pk": pk,
         "sk": sk,

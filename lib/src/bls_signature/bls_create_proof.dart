@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dart_bbs/src/bls_signature/uri_settings.dart';
 import 'package:http/http.dart' as http;
 
 /* Interface
@@ -14,10 +15,7 @@ import 'package:http/http.dart' as http;
 
 Future<String> blsCreateProof(
     signature, publicKey, messages, revealed, nonce) async {
-  var url = Uri.parse(
-    'http://35.86.230.210:8000/bls_create_proof', //HTTP request
-  );
-  var response = await http.post(url,
+  var response = await http.post(blsCreateProofUri,
       body: json.encode({
         "signature": signature,
         "publicKey": publicKey,

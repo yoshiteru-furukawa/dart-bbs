@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dart_bbs/src/bls_signature/uri_settings.dart';
 import 'package:http/http.dart' as http;
 
 /* Interface
@@ -12,7 +13,6 @@ import 'package:http/http.dart' as http;
 
 Future<bool> blsVerify(
     String publicKey, List<String> messages, String signature) async {
-  var blsVerifyUri = Uri.parse("http://35.86.230.210:8000/bls_verify");
   var response = await http.post(
     blsVerifyUri,
     body: json.encode({

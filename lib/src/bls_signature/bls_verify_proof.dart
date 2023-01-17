@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dart_bbs/src/bls_signature/uri_settings.dart';
 import 'package:http/http.dart' as http;
 
 // input  : VP String
@@ -7,11 +8,7 @@ import 'package:http/http.dart' as http;
 // output : result Bool
 
 Future<bool> blsVerifyProof(proof, publicKey, messages, nonce) async {
-  var url = Uri.parse(
-    'http://35.86.230.210:9000/bls_verify_proof', //HTTP request
-  );
-
-  var response = await http.post(url,
+  var response = await http.post(blsVerifyUri,
       body: json.encode({
         "proof": proof,
         "publicKey": publicKey,

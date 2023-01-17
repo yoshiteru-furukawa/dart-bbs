@@ -21,9 +21,48 @@ dependencies:
   dart_bbs:
     path: ../dart_bbs # path for this repository
 ```
+## Usage(simple signature and verification)
+```dart
+import 'dart:convert';
+import 'package:dart_bbs/dart_bbs.dart';
+
+String message = json.encode({
+  "field A": [
+    "test",
+    "test"
+  ],
+  "field B": "test",
+  "field C": ["test"],
+  "field D": "test",
+  "field E": "test"
+});
 
 
-## Usage
+/* keyPair */
+var keyPair = await genBlsKeyPair();
+String publicKey = keyPair["publicKey"];
+String secretKey = keyPair["secretKey"];
+
+/* blsSign
+ input  : publickey String
+        : secretkey String
+        : messages String[]
+
+ output : proofValue(Signature) String 
+*/
+String signature = await blsSign(publicKey, secretKey, [message]);
+
+/* blsVerify
+ input  : publickey String
+        : messages String[]
+        : signature(proofValue) String
+
+ output : verifiedResult Bool 
+*/
+bool result = await blsVerify(publicKey, [message], signature);
+
+```
+## Usage(VCS)
 
 ```dart
 import 'dart:convert';
@@ -43,25 +82,15 @@ void main() async {
 
    /* Issuer's keyPair 
   keyPair(publicKey) should be obtained from VDR */
-  var keyPair = await getKeyPair();
+  var keyPair = await genBlsKeyPair();
   String publicKey = keyPair["publicKey"];
   String secretKey = keyPair["secretKey"];
 
 
-  /* to obtain signature */
-  String signature = await getProofValue(publicKey, secretKey, [jsonObject]);
-  print(signature); // String signature
-
-  /* to verify signature */
-  bool is_verified = await blsVerify(signature, publicKey, [jsonObject]);
-  print(is_verified); // bool verifiedResult
-
-
-
   /* signed VC 
     For selective disclosure */
-  String signedVC2 = await vcCreate(VC, secretKey, //publicKey);
-  print(signedVC2); // String signedVC
+  String signedVC = await vcCreate(VC, secretKey, //publicKey);
+  print(signedVC); // String signedVC
 
   /* get Options 
    user selects property from options in PLR app */
