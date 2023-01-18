@@ -16,7 +16,7 @@ Future<bool> jwsVerify(String compactSerialization, String publicKey) async {
   var jws = JsonWebSignature.fromCompactSerialization(compactSerialization);
   if (!_checkJWTValidity(jws)) return false;
 
-  return blsVerify(publicKey, [jws.payloadDecoded], jws.signature);
+  return await blsVerify(publicKey, [jws.payloadDecoded], jws.signature);
 }
 
 bool _checkJWTValidity(JsonWebSignature jws) {
