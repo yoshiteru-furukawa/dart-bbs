@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:dart_bbs/src/bls_signature/bls_create_proof.dart';
-import 'package:dart_bbs/src/models/merge_fields.dart';
 import 'package:dart_bbs/src/models/vc.dart';
 import 'package:dart_bbs/src/utils/get_date.dart';
 
@@ -11,7 +10,7 @@ import 'package:nonce/nonce.dart';
 //
 // output : proof value
 
-Future<String> vpCreate(signedVC, revealed, publicKey) async {
+Future<String> vpCreate(signedVC, revealedIndices, publicKey) async {
   VerifiableCredential VC_ = VerifiableCredential(signedVC);
 
   /* getProofValue */
@@ -23,12 +22,12 @@ Future<String> vpCreate(signedVC, revealed, publicKey) async {
   List<String> messages = VC_.messages;
 
   // convert from List<String> to List<Int>
-  List<int> revealedIndices = revealed;
+  List<int> revealed = VC_.getRevealedIndices(revealedIndices);
 
   String nonce = Nonce.generate(64);
 
-  String proofValue = await blsCreateProof(
-      signature, publicKey, messages, revealedIndices, nonce);
+  String proofValue =
+      await blsCreateProof(signature, publicKey, messages, revealed, nonce);
 
   /* createProof */
   var proof = {
@@ -42,7 +41,7 @@ Future<String> vpCreate(signedVC, revealed, publicKey) async {
 
   /* composeVP */
   // selectively disclosed
-  Map VP = json.decode(mergeFields(VC_.messagesWithMeta, revealed));
+  Map VP = VC_.createVPWithSelectiveDisclosure(revealed);
   VP["proof"] = proof;
   return json.encode(VP);
 }

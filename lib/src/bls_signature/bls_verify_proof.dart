@@ -8,7 +8,7 @@ import 'package:http/http.dart' as http;
 // output : result Bool
 
 Future<bool> blsVerifyProof(proof, publicKey, messages, nonce) async {
-  var response = await http.post(blsVerifyUri,
+  var response = await http.post(blsVerifyProofUri,
       body: json.encode({
         "proof": proof,
         "publicKey": publicKey,

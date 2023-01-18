@@ -65,8 +65,9 @@ void main() async {
   //print(VC_.getMessages());
   print("----------------------------------------");
   print("2. VC will be divided into some parts");
+  print("\n\n");
   for (var i = 0; i < VC_.messages.length; i++) {
-    print(i);
+    print("message $i");
     pprint(json.decode(VC_.messages[i]));
     print("\n\n");
   }
@@ -83,11 +84,16 @@ void main() async {
   List<String> options = getOptions(signedVC);
   print("----------------------------------------");
   print("4. PLR can get selective fields.");
-  print(options);
+  print("\n\n");
+  for (var i = 0; i < options.length; i++) {
+    print("field $i");
+    pprint(json.decode(options[i]));
+    print("\n\n");
+  }
   print("\n\n");
 
   /* create VP */
-  List<int> revealed = [0, 1, 4, 5];
+  List<int> revealed = [1, 4];
   String VP = await vpCreate(signedVC, revealed, publicKey);
   print("----------------------------------------");
   print("5. VP will be created with selective disclosure by Holder");

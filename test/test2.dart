@@ -120,7 +120,7 @@ void main() async {
   print("----------------------------------------");
   print("2. VC will be divided into some parts");
   for (var i = 0; i < VC_.messages.length; i++) {
-    print(i);
+    print("message $i");
     pprint(json.decode(VC_.messages[i]));
     print("\n\n");
   }
@@ -137,7 +137,11 @@ void main() async {
   List<String> options = getOptions(signedVC);
   print("----------------------------------------");
   print("4. PLR can get selective fields.");
-  print(options);
+  for (var i = 0; i < options.length; i++) {
+    print("field $i");
+    pprint(json.decode(options[i]));
+    print("\n\n");
+  }
   print("\n\n");
 
   /* create VP */

@@ -15,6 +15,6 @@ Future<bool> vpVerify(VP, publicKey) async {
   // should be obtained from VDR
   // var publicKey = "vovnemt";
 
-  return blsVerifyProof(
+  return await blsVerifyProof(
       VP_.getSignature(), publicKey, VP_.messages, VP_.getNonce());
 }
