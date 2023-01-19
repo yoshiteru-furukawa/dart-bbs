@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:dart_bbs/dart_bbs.dart';
 import 'package:dart_bbs/src/models/vc.dart';
+import 'package:dart_bbs/src/rsa_signature/gen_rsa_key_pair.dart';
 import 'package:dart_bbs/src/utils/pprint.dart';
 
 void main() async {
@@ -146,14 +147,14 @@ void main() async {
 
   /* create VP */
   List<int> revealed = [0, 1, 4, 5];
-  String VP = await vpCreate(signedVC, revealed, publicKey);
+  String VP = await vpCreate(signedVC, revealed, publicKey, rsaPrivateKey);
   print("----------------------------------------");
   print("5. VP will be created with selective disclosure by Holder");
   pprint(json.decode(VP));
   print("\n\n");
 
   /* verify VP */
-  bool result = await vpVerify(VP, publicKey);
+  bool result = await vpVerify(VP, publicKey, rsaPublicKey);
   print("----------------------------------------");
   print("6. VP will be verified by Verifier");
   print(result);

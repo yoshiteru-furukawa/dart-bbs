@@ -21,7 +21,7 @@ dependencies:
   dart_bbs:
     path: ../dart_bbs # path for this repository
 ```
-## Usage(simple signature and verification)
+## Usage(simple BLS signature and verification)
 ```dart
 import 'dart:convert';
 import 'package:dart_bbs/dart_bbs.dart';
@@ -99,11 +99,11 @@ void main() async {
 
   /* create VP */
   List<int> revealed = [0, 1, 2, 4];
-  String VP = await vpCreate(signedVC, revealed, publicKey);
+  String VP = await vpCreate(signedVC, revealed, publicKey, holderPrivateKey);
   print(VP); // String VP
 
   /* verify VP */
-  String result = await vpVerify(VP, publicKey);
+  String result = await vpVerify(VP, publicKey, holderPublicKey);
   print(result); // bool result
 }
 ```
