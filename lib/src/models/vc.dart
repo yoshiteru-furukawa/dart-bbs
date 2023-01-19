@@ -4,13 +4,17 @@ class VerifiableCredential {
   String strVC;
   late Map mapVC = json.decode(strVC);
   late List<String> messages = getMessages();
-  late List<dynamic>? proof = mapVC["proof"];
+  late Map? proof = mapVC["proof"];
 
   VerifiableCredential(this.strVC);
 
   // proofない時にエラー
   String getSignature() {
-    return proof![0]["proofValue"];
+    return proof!["proofValue"];
+  }
+
+  String getNonce() {
+    return proof!["nonce"];
   }
 
   String getVerificationMethod() {

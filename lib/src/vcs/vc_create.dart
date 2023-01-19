@@ -34,7 +34,7 @@ Future<String> vcCreate(VC, secretKey, publicKey) async {
 
   /* createVC */
   Map signedVC = VC_.mapVC;
-  signedVC["proof"] = [proof];
+  signedVC["proof"] = proof;
 
   return json.encode(signedVC);
 }
