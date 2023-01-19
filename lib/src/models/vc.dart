@@ -91,7 +91,7 @@ class VerifiableCredential {
       if (json.decode(messages[i])["required"] == false) {
         selectiveFields.add(json.encode({}
           ..addAll(json.decode(messages[i]))
-          ..addAll({"disclosedIndex": i})));
+          ..addAll({"revealedIndex": i})));
       }
     }
     return selectiveFields;
