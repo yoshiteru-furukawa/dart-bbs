@@ -1,8 +1,6 @@
 import 'dart:convert';
 import 'package:dart_bbs/dart_bbs.dart';
-import 'package:dart_bbs/src/bls_signature/gen_bls_key_pair.dart';
 import 'package:dart_bbs/src/models/vc.dart';
-import 'package:dart_bbs/src/models/vp.dart';
 import 'package:dart_bbs/src/rsa_signature/gen_rsa_key_pair.dart';
 import 'package:dart_bbs/src/utils/pprint.dart';
 

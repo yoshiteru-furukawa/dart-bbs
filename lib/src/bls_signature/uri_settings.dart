@@ -1,5 +1,5 @@
 final genBlsKeyPairUri = Uri.parse(
-  'http://35.86.230.210:8000/generate_key_pair',
+  'http://35.86.230.210:3000/generate_key_pair',
 );
 
 final blsSignUri = Uri.parse(
@@ -7,12 +7,12 @@ final blsSignUri = Uri.parse(
 );
 
 final blsVerifyUri = Uri.parse(
-  'http://35.86.230.210:8000/bls_verify',
+  'http://35.86.230.210:3000/bls_verify',
 );
 
 final blsCreateProofUri = Uri.parse(
-  'http://35.86.230.210:8000/bls_create_proof',
+  'http://35.86.230.210:3000/bls_create_proof',
 );
 final blsVerifyProofUri = Uri.parse(
-  'http://35.86.230.210:9000/bls_verify_proof',
+  'http://35.86.230.210:3000/bls_verify_proof',
 );
