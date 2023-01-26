@@ -2,12 +2,13 @@ import 'dart:convert';
 import 'package:dart_bbs/src/bls_signature/bls_sign.dart';
 import 'package:dart_bbs/src/models/vc.dart';
 import 'package:dart_bbs/src/utils/get_date.dart';
+import 'package:dart_bbs/src/vdr/retrieve_key_value.dart';
 
 // input  : VC        String
 //
 // output : proof value
 
-Future<String> vcCreate(VC, secretKey, publicKey, kid) async {
+Future<String> vcCreate(VC, secretKey, kid) async {
   Map VC1 = json.decode(VC);
   VC1["issuanceDate"] = getDate();
 
@@ -18,6 +19,7 @@ Future<String> vcCreate(VC, secretKey, publicKey, kid) async {
   // String publicKey = "feghtwjyet";
 
   List<String> messages = VC_.messages;
+  String publicKey = await retrieveKeyValue(kid);
 
   String proofValue = await blsSign(publicKey, secretKey, messages);
 

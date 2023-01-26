@@ -86,7 +86,7 @@ void main() async {
   }
 
   /* signed VC */
-  String signedVC = await vcCreate(VC, secretKey, publicKey, kid);
+  String signedVC = await vcCreate(VC, secretKey, kid);
   print("----------------------------------------");
   print("4. VC will be signed by Issuer (VC create)");
   pprint(json.decode(signedVC));
