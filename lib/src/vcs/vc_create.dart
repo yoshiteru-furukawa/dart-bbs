@@ -8,7 +8,7 @@ import 'package:dart_bbs/src/vdr/retrieve_key_value.dart';
 //
 // output : proof value
 
-Future<String> vcCreate(VC, secretKey, kid) async {
+Future<String> vcCreate(VC, issuerSecretKey, kid) async {
   Map VC1 = json.decode(VC);
   VC1["issuanceDate"] = getDate();
 
@@ -21,7 +21,7 @@ Future<String> vcCreate(VC, secretKey, kid) async {
   List<String> messages = VC_.messages;
   String publicKey = await retrieveKeyValue(kid);
 
-  String proofValue = await blsSign(publicKey, secretKey, messages);
+  String proofValue = await blsSign(publicKey, issuerSecretKey, messages);
 
   /* createProof */
   var proof = {

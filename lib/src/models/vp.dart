@@ -17,20 +17,20 @@ class VerifiablePresentation {
     body["verifiableCredential"] = [vc];
   }
 
-  void createProof(holderPrivateKey) {
+  void createProof(holderPrivateKey, kid) {
     String signature = rsaSign(holderPrivateKey, json.encode(body));
     var rsaProof = {
       "type": "RsaSignature2018",
       "created": getDate(),
-      "verificationMethod": "test",
+      "verificationMethod": kid,
       "proofPurpose": "assertionMethod",
       "proofValue": signature,
     };
     body["proof"] = rsaProof;
   }
 
-  String export(holderPrivateKey) {
-    createProof(holderPrivateKey);
+  String export(holderPrivateKey, kid) {
+    createProof(holderPrivateKey, kid);
     return json.encode(body);
   }
 }
