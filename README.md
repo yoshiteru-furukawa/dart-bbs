@@ -63,6 +63,7 @@ bool result = await blsVerify(publicKey, [message], signature);
 
 ```
 ## Usage(VCS)
+You can learn the detail in test/test.dart or test2.dart
 
 ```dart
 import 'dart:convert';
@@ -80,16 +81,10 @@ void main() async {
     "issuanceDate": "2022-10-09T10:15:55.382Z" // overridden
   });
 
-   /* Issuer's keyPair 
-  keyPair(publicKey) should be obtained from VDR */
-  var keyPair = await genBlsKeyPair();
-  String publicKey = keyPair["publicKey"];
-  String secretKey = keyPair["secretKey"];
 
-
-  /* signed VC 
-    For selective disclosure */
-  String signedVC = await vcCreate(VC, secretKey, //publicKey);
+  /* signed VC For selective disclosure 
+    kid is used as "VerificationMethod" value in VC */
+  String signedVC = await vcCreate(VC, issuerSecretKey, kid);
   print(signedVC); // String signedVC
 
   /* get Options 
@@ -97,13 +92,52 @@ void main() async {
   List<String> options = getOptions(signedVC);
   print(options); // List<String> selective messages
 
-  /* create VP */
+  /* create VP 
+    kid is used as "VerificationMethod" value in VP */
   List<int> revealed = [0, 1, 2, 4];
-  String VP = await vpCreate(signedVC, revealed, publicKey, holderPrivateKey);
+  String VP = await vpCreate(signedVC, revealed, holderSecretKey, kid);
   print(VP); // String VP
 
   /* verify VP */
-  String result = await vpVerify(VP, publicKey, holderPublicKey);
+  String result = await vpVerify(VP);
   print(result); // bool result
+}
+```
+
+
+## Usage(VDR)
+You can learn the detail in test/test3.dart
+
+```dart
+import 'dart:convert';
+import 'package:dart_bbs/dart_bbs.dart';
+
+void main() async {
+
+  String jwkSet = json.encode({
+  "keys": [
+    {
+      "kty": "RSA",
+      "n": "kY80Nkne6kMo7YUD-4klZfNffsf1jori8bfTaesN6f5gbXYo9mcUmibx_68Cm0NHeg0IMW95y2J8tcRk0tRqLdN246_SmQD4XfhDZMCD2cvJ2Du9ziBbqye8CC651_zGqHBJiCzf8qppQ7QcZwKtZ_d_useYfrLrb3KTHrrRVObzC0FX7fJHV010wFDNTQDiYFuvwY5CP4r7xOfUpGie7X3wnAZkhGa8DP61469MQboQA0ICcsGxJBI4JxmErO6D2VOXSFmrBMbXySVbWYVPTf7fZ_8MuevvBMp24A9Yu4vmQJyqq3PLM3Yq24Omtl4RcqjQMmSmFb0SdCXxesfPjQ==",
+      "e": "AQAB"
+    },
+    {
+      "kty": "OKP",
+      "crv": "Bls12381G2",
+      "x": "ra5S/xUwWnKBrxexHISuZlRRZPBjZ37wMvF3mfFiytW9urPY6JtiHzJ6t5jQCMHPE+aJ195CvaoS3uRGH0SoUjnGxeuMv+IcWpVhtmy2s1w7ZVgF7ZifpD0Bd9Eu8rpw"
+    }
+  ]
+  });
+  /* create DID 
+   second parameter 'type' is used to generate did */
+  Map didResult = await createDid(jwkSet, "issuer"); // -> did:example:${type}00000
+  pprint(didResult);
+
+  /* retrieve Key 
+   return JWK (Map Format) */
+  Map key = await retrieveKey(kid);
+  pprint(key)
+
+
 }
 ```

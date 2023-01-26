@@ -65,7 +65,6 @@ void main() async {
 
   print("----------------------------------------");
   print("2. publicKey should be registerd into vdr");
-  var exponent;
   String jwkSet = json.encode({
     "keys": [
       jwkFromRsaPublicKey(rsaPublicKey),
