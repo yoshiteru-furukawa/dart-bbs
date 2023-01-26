@@ -132,11 +132,39 @@ void main() async {
    second parameter 'type' is used to generate did */
   Map didResult = await createDid(jwkSet, "issuer"); // -> did:example:${type}00000
   pprint(didResult);
+  /*
+  {
+  "id": "did:example:issuer15",
+  "keys": [
+    {
+      "kty": "RSA",
+      "n": "kY80Nkne6kMo7YUD-4klZfNffsf1jori8bfTaesN6f5gbXYo9mcUmibx_68Cm0NHeg0IMW95y2J8tcRk0tRqLdN246_SmQD4XfhDZMCD2cvJ2Du9ziBbqye8CC651_zGqHBJiCzf8qppQ7QcZwKtZ_d_useYfrLrb3KTHrrRVObzC0FX7fJHV010wFDNTQDiYFuvwY5CP4r7xOfUpGie7X3wnAZkhGa8DP61469MQboQA0ICcsGxJBI4JxmErO6D2VOXSFmrBMbXySVbWYVPTf7fZ_8MuevvBMp24A9Yu4vmQJyqq3PLM3Yq24Omtl4RcqjQMmSmFb0SdCXxesfPjQ==",
+      "e": "AQAB",
+      "kid": "did:example:issuer15#1"
+    },
+    {
+      "kty": "OKP",
+      "crv": "Bls12381G2",
+      "x": "ra5S/xUwWnKBrxexHISuZlRRZPBjZ37wMvF3mfFiytW9urPY6JtiHzJ6t5jQCMHPE+aJ195CvaoS3uRGH0SoUjnGxeuMv+IcWpVhtmy2s1w7ZVgF7ZifpD0Bd9Eu8rpw",
+      "kid": "did:example:issuer15#2"
+    }
+  ]
+} 
+  */
 
   /* retrieve Key 
    return JWK (Map Format) */
   Map key = await retrieveKey(kid);
   pprint(key)
+
+  /*
+  {
+  "e": "AQAB",
+  "n": "kY80Nkne6kMo7YUD-4klZfNffsf1jori8bfTaesN6f5gbXYo9mcUmibx_68Cm0NHeg0IMW95y2J8tcRk0tRqLdN246_SmQD4XfhDZMCD2cvJ2Du9ziBbqye8CC651_zGqHBJiCzf8qppQ7QcZwKtZ_d_useYfrLrb3KTHrrRVObzC0FX7fJHV010wFDNTQDiYFuvwY5CP4r7xOfUpGie7X3wnAZkhGa8DP61469MQboQA0ICcsGxJBI4JxmErO6D2VOXSFmrBMbXySVbWYVPTf7fZ_8MuevvBMp24A9Yu4vmQJyqq3PLM3Yq24Omtl4RcqjQMmSmFb0SdCXxesfPjQ==",
+  "kid": "did:example:issuer15#1",
+  "kty": "RSA"
+}
+  */
 
 
 }

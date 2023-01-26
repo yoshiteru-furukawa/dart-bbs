@@ -38,6 +38,4 @@ void main() async {
   print("\n");
   Map key = await retrieveKey(kid);
   pprint(key);
-  String keyValue = await retrieveKeyValue(kid);
-  print(keyValue);
 }
