@@ -7,7 +7,7 @@ import 'package:dart_bbs/src/utils/get_date.dart';
 //
 // output : proof value
 
-Future<String> vcCreate(VC, secretKey, publicKey) async {
+Future<String> vcCreate(VC, secretKey, publicKey, kid) async {
   Map VC1 = json.decode(VC);
   VC1["issuanceDate"] = getDate();
 
@@ -27,7 +27,7 @@ Future<String> vcCreate(VC, secretKey, publicKey) async {
     "created": getDate(),
 
     // should be updated (how to obtain veriMethod)
-    "verificationMethod": VC_.getVerificationMethod(),
+    "verificationMethod": kid,
     "proofPurpose": "assertionMethod",
     "proofValue": proofValue,
   };

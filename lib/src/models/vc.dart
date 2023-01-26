@@ -18,8 +18,7 @@ class VerifiableCredential {
   }
 
   String getVerificationMethod() {
-    // return proof!["verificationMethod"];
-    return "test";
+    return proof!["verificationMethod"];
   }
 
   List<String> getHolderMessages() {

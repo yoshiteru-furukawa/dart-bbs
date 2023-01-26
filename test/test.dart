@@ -3,6 +3,7 @@ import 'package:dart_bbs/dart_bbs.dart';
 import 'package:dart_bbs/src/models/vc.dart';
 import 'package:dart_bbs/src/rsa_signature/gen_rsa_key_pair.dart';
 import 'package:dart_bbs/src/utils/pprint.dart';
+import 'package:dart_bbs/src/vdr/create_did.dart';
 
 void main() async {
   String VC = json.encode({
@@ -61,10 +62,22 @@ void main() async {
   print(secretKey);
   print("\n\n");
 
+  print("----------------------------------------");
+  print("2. publicKey should be registerd into vdr");
+  String jwkSet = json.encode({
+    "keys": [
+      {"kty": "OKP", "crv": "Bls12381G2", "x": publicKey}
+    ]
+  });
+  var didResult = await createDid(jwkSet, "issuer");
+  pprint(didResult);
+  String kid = didResult["keys"][0]["kid"];
+  print("\n\n");
+
   VerifiableCredential VC_ = VerifiableCredential(VC);
   //print(VC_.getMessages());
   print("----------------------------------------");
-  print("2. VC will be divided into some parts");
+  print("3. VC will be divided into some parts");
   print("\n\n");
   for (var i = 0; i < VC_.messages.length; i++) {
     print("message $i");
@@ -73,9 +86,9 @@ void main() async {
   }
 
   /* signed VC */
-  String signedVC = await vcCreate(VC, secretKey, publicKey);
+  String signedVC = await vcCreate(VC, secretKey, publicKey, kid);
   print("----------------------------------------");
-  print("3. VC will be signed by Issuer (VC create)");
+  print("4. VC will be signed by Issuer (VC create)");
   pprint(json.decode(signedVC));
   print("\n\n");
 
@@ -83,7 +96,7 @@ void main() async {
    user selects property from options in PLR app */
   List<String> options = getOptions(signedVC);
   print("----------------------------------------");
-  print("4. PLR can get selective fields.");
+  print("5. PLR can get selective fields.");
   print("\n\n");
   for (var i = 0; i < options.length; i++) {
     print("field $i");
@@ -94,14 +107,14 @@ void main() async {
 
   /* create VP */
   List<int> revealed = [1, 4];
-  String VP = await vpCreate(signedVC, revealed, publicKey, rsaPrivateKey);
+  String VP = await vpCreate(signedVC, revealed, rsaPrivateKey);
   print("----------------------------------------");
   print("5. VP will be created with selective disclosure by Holder");
   pprint(json.decode(VP));
   print("\n\n");
 
   /* verify VP */
-  bool result1 = await vpVerify(VP, publicKey, rsaPublicKey);
+  bool result1 = await vpVerify(VP, rsaPublicKey);
   print("----------------------------------------");
   print("6. VP will be verified by Verifier");
   print(result1);

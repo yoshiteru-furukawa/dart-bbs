@@ -3,6 +3,7 @@ import 'package:dart_bbs/src/bls_signature/bls_create_proof.dart';
 import 'package:dart_bbs/src/models/vc.dart';
 import 'package:dart_bbs/src/rsa_signature/rsa_sign.dart';
 import 'package:dart_bbs/src/utils/get_date.dart';
+import 'package:dart_bbs/src/vdr/retrieve_key_value.dart';
 
 import 'package:nonce/nonce.dart';
 
@@ -11,14 +12,14 @@ import 'package:nonce/nonce.dart';
 //
 // output : proof value
 
-Future<Map> vpSelectiveDisclosed(signedVC, revealedIndices, publicKey) async {
+Future<Map> vpSelectiveDisclosed(signedVC, revealedIndices) async {
   VerifiableCredential signedVC_ = VerifiableCredential(signedVC);
 
   /* getProofValue */
   String signature = signedVC_.getSignature();
 
   // should be obtained from VDR
-  // String publicKey = "feghtwjyet";
+  String publicKey = await retrieveKeyValue(signedVC_.getVerificationMethod());
 
   List<String> messages = signedVC_.messages;
 
