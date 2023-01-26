@@ -17,3 +17,7 @@ export 'src/vcs/vc_create.dart';
 export 'src/vcs/vp_create.dart';
 export 'src/vcs/vp_verify.dart';
 export 'src/vcs/get_options.dart';
+
+/* vdr */
+export 'src/vdr/create_did.dart';
+export 'src/vdr/retrieve_key.dart';
