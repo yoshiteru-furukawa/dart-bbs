@@ -9,7 +9,7 @@ import 'package:dart_bbs/src/vdr/vdr_uri_settings.dart';
  output : jwk Map 
 */
 
-Future<Map> retrieveKey(String kid) async {
+Future<Map<String, dynamic>> retrieveKey(String kid) async {
   var response = await http.post(vdrRetrieveKeyUri,
       body: json.encode({"kid": kid}),
       headers: {"Content-Type": "application/json"});

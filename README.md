@@ -128,9 +128,8 @@ void main() async {
     }
   ]
   });
-  /* create DID 
-   second parameter 'type' is used to generate did */
-  Map didResult = await createDid(jwkSet, "issuer"); // -> did:example:${type}00000
+  /* create DID */
+  Map didResult = await createDid(jwkSet); // -> did:example:00000
   pprint(didResult);
   /*
   {

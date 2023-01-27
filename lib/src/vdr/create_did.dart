@@ -25,14 +25,14 @@ import 'package:dart_bbs/src/vdr/vdr_uri_settings.dart';
  output : {id: value, keys: value} Map 
 */
 
-Future<Map> createDid(String jwkSet) async {
+Future<Map<String, dynamic>> createDid(String jwkSet) async {
   Map jwkSetMap = json.decode(jwkSet);
   List<String> pubKeys = [];
   for (var key in jwkSetMap["keys"]) {
     pubKeys.add(json.encode(key));
   }
   var response = await http.post(vdrCreateDidUri,
-      body: json.encode({"publicKeys": pubKeys, "type": ""}),
+      body: json.encode({"publicKeys": pubKeys}),
       headers: {"Content-Type": "application/json"});
 
   return json.decode(response.body);
