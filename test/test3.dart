@@ -27,7 +27,7 @@ void main() async {
   });
   print("----------------------------------------");
   print("1. create did");
-  Map result = await createDid(jwkSet, "issuer");
+  Map result = await createDid(jwkSet);
   pprint(result);
   print("\n\n");
 

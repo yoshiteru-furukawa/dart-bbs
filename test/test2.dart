@@ -128,7 +128,7 @@ void main() async {
       {"kty": "OKP", "crv": "Bls12381G2", "x": blsPublicKey}
     ]
   });
-  var didResult = await createDid(jwkSet, "issuer");
+  var didResult = await createDid(jwkSet);
   pprint(didResult);
   String rsaKid = didResult["keys"][0]["kid"];
   String blsKid = didResult["keys"][1]["kid"];
