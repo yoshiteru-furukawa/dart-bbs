@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dart_bbs/src/bls_signature/uri_settings.dart';
+import 'package:dart_bbs/src/bls_signature/bls_settings.dart';
 import 'package:http/http.dart' as http;
 
 // input  :

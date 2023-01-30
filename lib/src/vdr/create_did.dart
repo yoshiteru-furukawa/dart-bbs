@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:dart_bbs/src/vdr/vdr_uri_settings.dart';
+import 'package:dart_bbs/src/vdr/vdr_settings.dart';
 
 /* Interface
  input  : jwkSet String
