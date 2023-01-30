@@ -9,10 +9,10 @@ import 'package:dart_bbs/src/vdr/vdr_uri_settings.dart';
  output : keyValue String
 */
 
-Future<String> retrieveKeyValue(String kid) async {
+Future<String> retrieveBlsKeyValue(String kid) async {
   var response = await http.post(vdrRetrieveKeyUri,
       body: json.encode({"kid": kid}),
       headers: {"Content-Type": "application/json"});
 
-  return json.decode(response.body)["keyString"];
+  return json.decode(response.body)["x"];
 }

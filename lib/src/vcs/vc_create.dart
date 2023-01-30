@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:dart_bbs/src/bls_signature/bls_sign.dart';
 import 'package:dart_bbs/src/models/vc.dart';
 import 'package:dart_bbs/src/utils/get_date.dart';
-import 'package:dart_bbs/src/vdr/retrieve_key_value.dart';
+import 'package:dart_bbs/src/bls_signature/retrieve_bls_key_value.dart';
 
 // input  : VC        String
 //
@@ -19,7 +19,7 @@ Future<String> vcCreate(VC, issuerSecretKey, kid) async {
   // String publicKey = "feghtwjyet";
 
   List<String> messages = VC_.messages;
-  String publicKey = await retrieveKeyValue(kid);
+  String publicKey = await retrieveBlsKeyValue(kid);
 
   String proofValue = await blsSign(publicKey, issuerSecretKey, messages);
 

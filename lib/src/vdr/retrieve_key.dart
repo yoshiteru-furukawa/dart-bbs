@@ -14,5 +14,5 @@ Future<Map<String, dynamic>> retrieveKey(String kid) async {
       body: json.encode({"kid": kid}),
       headers: {"Content-Type": "application/json"});
 
-  return json.decode(response.body)["jwk"];
+  return json.decode(response.body);
 }

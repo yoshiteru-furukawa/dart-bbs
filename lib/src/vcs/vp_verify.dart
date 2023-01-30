@@ -5,7 +5,7 @@ import 'package:dart_bbs/src/models/vc.dart';
 import 'package:dart_bbs/src/models/vp.dart';
 import 'package:dart_bbs/src/rsa_signature/convert_rsa_key.dart';
 import 'package:dart_bbs/src/rsa_signature/rsa_verify.dart';
-import 'package:dart_bbs/src/vdr/retrieve_key_value.dart';
+import 'package:dart_bbs/src/bls_signature/retrieve_bls_key_value.dart';
 import 'package:http/http.dart' as http;
 import 'package:pointycastle/pointycastle.dart';
 
@@ -30,7 +30,7 @@ Future<bool> vpVerify(VP) async {
   for (var VC in signedData["verifiableCredential"]) {
     var VC_ = VerifiableCredential(json.encode(VC));
     String issuerPublicKey =
-        await retrieveKeyValue(VC_.getVerificationMethod());
+        await retrieveBlsKeyValue(VC_.getVerificationMethod());
 
     bool result = await blsVerifyProof(
         VC_.getSignature(), issuerPublicKey, VC_.messages, VC_.getNonce());

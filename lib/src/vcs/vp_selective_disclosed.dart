@@ -3,7 +3,7 @@ import 'package:dart_bbs/src/bls_signature/bls_create_proof.dart';
 import 'package:dart_bbs/src/models/vc.dart';
 import 'package:dart_bbs/src/rsa_signature/rsa_sign.dart';
 import 'package:dart_bbs/src/utils/get_date.dart';
-import 'package:dart_bbs/src/vdr/retrieve_key_value.dart';
+import 'package:dart_bbs/src/bls_signature/retrieve_bls_key_value.dart';
 
 import 'package:nonce/nonce.dart';
 
@@ -19,7 +19,8 @@ Future<Map> vpSelectiveDisclosed(signedVC, revealedIndices) async {
   String signature = signedVC_.getSignature();
 
   // should be obtained from VDR
-  String publicKey = await retrieveKeyValue(signedVC_.getVerificationMethod());
+  String publicKey =
+      await retrieveBlsKeyValue(signedVC_.getVerificationMethod());
 
   List<String> messages = signedVC_.messages;
 
