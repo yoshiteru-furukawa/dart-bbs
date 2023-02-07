@@ -21,52 +21,7 @@ class VerifiableCredential {
     return proof!["verificationMethod"];
   }
 
-  List<String> getHolderMessages() {
-    List<String> ret = [];
-    Map holderInfo = mapVC["holder"];
-    Map requiredInfo = {"id": holderInfo["id"], "type": holderInfo["type"]};
-    for (String key in holderInfo.keys) {
-      if (requiredInfo.keys.contains(key)) {
-        continue;
-      }
-      ret.add(json.encode({}
-        ..addAll(requiredInfo)
-        ..addAll({
-          key: holderInfo[key],
-          "required": false,
-          "parentName": "holder"
-        })));
-    }
-
-    if (ret.isEmpty) {
-      ret.add(json.encode({}
-        ..addAll(requiredInfo)
-        ..addAll({"required": true, "parentName": "holder"})));
-    }
-    return ret;
-  }
-
-  List<String> getCredentialSubjectMessgaes() {
-    List<String> ret = [];
-
-    if (mapVC["credentialSubject"].runtimeType != List) {
-      ret.add(json.encode({}
-        ..addAll(mapVC["credentialSubject"])
-        ..addAll({"required": false, "parentName": "credentialSubject"})));
-      return ret;
-    }
-
-    for (Map credentialSubject in mapVC["credentialSubject"]) {
-      ret.add(json.encode({}
-        ..addAll(credentialSubject)
-        ..addAll({"required": false, "parentName": "credentialSubject"})));
-    }
-    return ret;
-  }
-
   List<String> getMessages() {
-    List<String> ret = [];
-
     /* requiredField */
     Map requiredFields = {};
     for (String key in mapVC.keys) {
@@ -75,65 +30,37 @@ class VerifiableCredential {
       }
       requiredFields[key] = mapVC[key];
     }
-    ret.add(json.encode({}
-      ..addAll(requiredFields)
-      ..addAll({"required": true, "parentName": "root"})));
+    List<String> ret = [json.encode(requiredFields)];
 
-    /* holder */
-    ret.addAll(getHolderMessages());
-
-    /* credentialSubject */
-    ret.addAll(getCredentialSubjectMessgaes());
+    /* credentialSubject 
+       -> selectiveFields */
+    ret.addAll(getSelectiveFields());
 
     return ret;
   }
 
   List<String> getSelectiveFields() {
-    List<String> selectiveFields = [];
-    for (var i = 0; i < messages.length; i++) {
-      if (json.decode(messages[i])["required"] == false) {
-        selectiveFields.add(json.encode({}
-          ..addAll(json.decode(messages[i]))
-          ..addAll({"revealedIndex": i})));
-      }
-    }
-    return selectiveFields;
-  }
-
-  // revealedの橋渡し
-  List<int> getRevealedIndices(List<int> revealedIndices) {
-    List<int> ret = [];
-    for (var i = 0; i < messages.length; i++) {
-      if (json.decode(messages[i])["required"] || revealedIndices.contains(i)) {
-        ret.add(i);
-      }
+    List<String> ret = [];
+    for (var m in mapVC["credentialSubject"]) {
+      ret.add(json.encode(m));
     }
     return ret;
   }
 
-  Map createVPWithSelectiveDisclosure(List<int> revealed) {
-    Map removedMetaMap(String m) {
-      Map ret = json.decode(m);
-      ret.remove("required");
-      ret.remove("parentName");
-      return ret;
-    }
+  // revealedの橋渡し
+  List<int> getRevealedIndices(List<int> revealedIndices) {
+    return [0] + revealedIndices;
+  }
 
+  Map createVPWithSelectiveDisclosure(List<int> revealed) {
     /*  */
-    Map VP = removedMetaMap(messages[0]);
-    VP["holder"] = {};
+    Map VP = json.decode(messages[0]);
     VP["credentialSubject"] = [];
     for (var index in revealed) {
       /* root message == required */
       if (index == 0) continue;
 
-      if (json.decode(messages[index])["parentName"] == "holder") {
-        VP["holder"].addAll(removedMetaMap(messages[index]));
-      }
-
-      if (json.decode(messages[index])["parentName"] == "credentialSubject") {
-        VP["credentialSubject"].add(removedMetaMap(messages[index]));
-      }
+      VP["credentialSubject"].add(json.decode(messages[index]));
     }
     return VP;
   }

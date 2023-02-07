@@ -10,42 +10,54 @@ void main() async {
   String VC = json.encode({
     "@context": [
       "https://www.w3.org/2018/credentials/v1",
-      "https://purl.imsglobal.org/spec/ob/v3p0/context.json",
-      "https://www.u-tokyo.ac.jp/oid/context.json"
+      "https://purl.imsglobal.org/spec/ob/v3p0/context.json"
     ],
-    "id": "http://credentials.u-tokyo.ac.jp/degree/phd/science/12345",
     "type": ["VerifiableCredential", "OpenBadgeCredential"],
+    "credentialSubject": [
+      {"id": "did:example:40", "type": "Profile", "name": "池本 昌弘"},
+      {"id": "did:example:40", "type": "Profile", "dateOfBirth": "1991-05-27"},
+      {"id": "did:example:40", "type": "Profile", "sex": "female"},
+      {
+        "id": "did:example:40",
+        "type": "AchievementSubject",
+        "creditsEarned": 2.9,
+        "result": {"achievedLevel": "D"},
+        "achievement": {
+          "type": "Course",
+          "name": "Compiler Construction",
+          "description": "The description for Compiler Construction"
+        }
+      },
+      {
+        "id": "did:example:40",
+        "type": "AchievementSubject",
+        "creditsEarned": 3.9,
+        "result": {"achievedLevel": "D"},
+        "achievement": {
+          "type": "Course",
+          "name": "Linear Algebra",
+          "description": "The description for Linear Algebra"
+        }
+      },
+      {
+        "id": "did:example:40",
+        "type": "AchievementSubject",
+        "creditsEarned": 3.1,
+        "result": {"achievedLevel": "F"},
+        "achievement": {
+          "type": "Course",
+          "name": "Machine Learning I",
+          "description": "The description for Machine Learning I"
+        }
+      }
+    ],
     "issuer": {
-      "id": "did:xxx:issuersid1234567890",
+      "id": "did:example:21",
       "type": "Profile",
       "name": "The University of Tokyo"
     },
-    "issuanceDate": "2010-01-01T00:00:00Z",
-    "name": "PhD Degree Certificate",
-    "holder": {
-      "id": "did:xxx:holderid1234567890",
-      "type": "Profile",
-      "name": "SATO, Hiroyuki",
-      "birthday": "0000-00-00",
-      "sex": "male"
-    },
-    "credentialSubject": {
-      "id": "http://credentials.u-tokyo.ac.jp/degree/phd/science/12345",
-      "type": "AchievementSubject",
-      "identifier": {
-        "type": "IdentityObject",
-        "identityType": "Profile",
-        "hashed": "false",
-        "identityHash": "SATO Hiroyuki"
-      },
-      "achievement": {
-        "id": "http://credentials.u-tokyo.ac.jp/degree/phd/science/12345",
-        "type": "DoctoralDegree",
-        "criteria": "abc",
-        "description": "abc",
-        "name": "Doctor of Philosophy in Computer Science"
-      }
-    },
+    "issuanceDate": "2023-02-07T07:32:22.977724Z",
+    "name": "Transcript"
   });
 
   /* Issuer's keyPair 
