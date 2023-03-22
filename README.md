@@ -12,56 +12,17 @@ and the Flutter guide for
 -->
 
 ## Getting started
+```
+git clone https://github.com/yoshiteru-furukawa/dart-bbs.git
+```
+
 in pubspec.yaml...
-
-after cloning this repository
-
 ```
 dependencies:
   dart_bbs:
     path: ../dart_bbs # path for this repository
 ```
-## Usage(simple BLS signature and verification)
-```dart
-import 'dart:convert';
-import 'package:dart_bbs/dart_bbs.dart';
 
-String message = json.encode({
-  "field A": [
-    "test",
-    "test"
-  ],
-  "field B": "test",
-  "field C": ["test"],
-  "field D": "test",
-  "field E": "test"
-});
-
-
-/* keyPair */
-var keyPair = await genBlsKeyPair();
-String publicKey = keyPair["publicKey"];
-String secretKey = keyPair["secretKey"];
-
-/* blsSign
- input  : publickey String
-        : secretkey String
-        : messages String[]
-
- output : proofValue(Signature) String 
-*/
-String signature = await blsSign(publicKey, secretKey, [message]);
-
-/* blsVerify
- input  : publickey String
-        : messages String[]
-        : signature(proofValue) String
-
- output : verifiedResult Bool 
-*/
-bool result = await blsVerify(publicKey, [message], signature);
-
-```
 ## Usage(VCS)
 You can learn the detail in test/test.dart or test2.dart
 
