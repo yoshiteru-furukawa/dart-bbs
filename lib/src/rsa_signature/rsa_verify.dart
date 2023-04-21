@@ -6,7 +6,6 @@ import "package:pointycastle/export.dart";
 bool rsaVerify(RSAPublicKey publicKey, String signedData, String signature) {
   Uint8List signedData_ = convertStringToUint8List(signedData);
 
-  //final signer = Signer('SHA-256/RSA'); // Get using registry
   final sig = RSASignature(base64.decode(signature));
 
   final verifier = RSASigner(SHA256Digest(), '0609608648016503040201');

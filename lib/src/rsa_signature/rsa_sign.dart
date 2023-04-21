@@ -4,7 +4,6 @@ import "package:pointycastle/export.dart";
 
 String rsaSign(RSAPrivateKey privateKey, String dataToSign) {
   Uint8List dataToSign_ = convertStringToUint8List(dataToSign);
-  //final signer = Signer('SHA-256/RSA'); // Get using registry
   final signer = RSASigner(SHA256Digest(), '0609608648016503040201');
 
   // initialize with true, which means sign

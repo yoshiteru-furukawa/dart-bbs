@@ -1,16 +1,17 @@
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
+import 'package:pointycastle/pointycastle.dart';
+
 import 'package:dart_bbs/src/bls_signature/bls_verify_proof.dart';
 import 'package:dart_bbs/src/models/vc.dart';
 import 'package:dart_bbs/src/models/vp.dart';
 import 'package:dart_bbs/src/rsa_signature/convert_rsa_key.dart';
 import 'package:dart_bbs/src/rsa_signature/rsa_verify.dart';
 import 'package:dart_bbs/src/bls_signature/retrieve_bls_key_value.dart';
-import 'package:http/http.dart' as http;
-import 'package:pointycastle/pointycastle.dart';
+
 
 // input  : VP String
-//        : publicKey String
 //
 // output : result Bool
 

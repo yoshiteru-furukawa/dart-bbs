@@ -18,13 +18,11 @@ Future<Map> vpSelectiveDisclosed(signedVC, revealedIndices) async {
   /* getProofValue */
   String signature = signedVC_.getSignature();
 
-  // should be obtained from VDR
   String publicKey =
       await retrieveBlsKeyValue(signedVC_.getVerificationMethod());
 
   List<String> messages = signedVC_.messages;
 
-  // convert from List<String> to List<Int>
   List<int> revealed = signedVC_.getRevealedIndices(revealedIndices);
 
   String nonce = Nonce.generate(64);

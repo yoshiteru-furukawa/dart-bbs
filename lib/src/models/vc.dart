@@ -8,7 +8,6 @@ class VerifiableCredential {
 
   VerifiableCredential(this.strVC);
 
-  // proofない時にエラー
   String getSignature() {
     return proof!["proofValue"];
   }
@@ -47,13 +46,12 @@ class VerifiableCredential {
     return ret;
   }
 
-  // revealedの橋渡し
+  // revealed indices
   List<int> getRevealedIndices(List<int> revealedIndices) {
     return [0] + revealedIndices;
   }
 
   Map createVPWithSelectiveDisclosure(List<int> revealed) {
-    /*  */
     Map VP = json.decode(messages[0]);
     VP["credentialSubject"] = [];
     for (var index in revealed) {

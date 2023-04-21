@@ -6,8 +6,10 @@ import 'package:dart_bbs/src/vcs/vp_selective_disclosed.dart';
 
 // input  : VC        String
 //          revealed  List<int>
+//          holderSecretKey
+//          kid (holder's)
 //
-// output : proof value
+// output : VP String
 
 Future<String> vpCreate(signedVC, revealedIndices, holderSecretKey, kid) async {
   var selectiveDislosedVC =

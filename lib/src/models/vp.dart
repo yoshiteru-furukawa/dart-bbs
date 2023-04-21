@@ -3,7 +3,6 @@ import 'package:dart_bbs/src/rsa_signature/rsa_sign.dart';
 import 'package:dart_bbs/src/utils/get_date.dart';
 
 class VerifiablePresentation {
-  //これどっかに移動
   Map body = {
     "@context": [
       "https://www.w3.org/2018/credentials/v1",
